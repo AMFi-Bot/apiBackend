@@ -35,7 +35,7 @@ Route::prefix('auth')->group(function () {
 });
 
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
-    return $request->user();
+    return response(['user' => $request->user()]);
 });
 
 Route::get('/test', function () {

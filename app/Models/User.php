@@ -23,16 +23,8 @@ class User extends Authenticatable
         'password',
         'avatar',
         'privelege',
-        "discord_token",
-        "discord_refresh_token",
-        "discord_id",
-        "telegram_id",
-        "google_token",
-        "google_refresh_token",
-        "google_id",
         "email_verified_at",
         "questionnaire",
-        'discord_guilds',
     ];
 
     /**
