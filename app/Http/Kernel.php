@@ -39,10 +39,10 @@ class Kernel extends HttpKernel
         ],
 
         'api' => [
+            \App\Http\Middleware\API\ReponseValidator::class,
             \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
             'throttle:api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
-            \App\Http\Middleware\API\ReponseValidator::class,
         ],
     ];
 
@@ -65,5 +65,7 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \App\Http\Middleware\EnsureEmailIsVerified::class,
         'apiResponseValidator' => \App\Http\Middleware\API\ReponseValidator::class,
+        'discordAuth' => \App\Http\Middleware\API\v1\Discord\DiscordAuthentication::class,
+        'discordGuildAuth' => \App\Http\Middleware\API\v1\Discord\DiscordGuildAuthentication::class,
     ];
 }

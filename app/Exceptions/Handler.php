@@ -4,6 +4,8 @@ namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use App\Exceptions\AuthenticationException;
+use Illuminate\Support\Facades\Log;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -45,10 +47,26 @@ class Handler extends ExceptionHandler
     public function register()
     {
         $this->renderable(function (AuthenticationException $e) {
-            return response([
-                'success' => false,
-                'message' => 'Unauthenticated'
-            ], 401);
+            return response(
+                'Unauthenticated',
+                401
+            );
+        });
+
+        $this->renderable(function (HttpException $e) {
+            $message = $e->getMessage();
+            if (is_object($message)) {
+                $message = $message->toArray();
+            }
+            return response()->json($message, $e->getStatusCode());
+        });
+        $this->renderable(function (Throwable $e) {
+            $message = $e->getMessage();
+            if (is_object($message)) {
+                $message = $message->toArray();
+            }
+            Log::debug($message);
+            return response()->json($message, 500);
         });
     }
 }

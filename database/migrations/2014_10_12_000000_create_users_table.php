@@ -22,6 +22,10 @@ return new class extends Migration
             $table->string('avatar')->nullable();
             $table->integer('privelege')->default(0);
             $table->string('questionnaire')->nullable();
+            $table->string('telegram_id')->nullable()->unique();
+            $table->string('discord_id')->nullable()->unique();
+            $table->string('discord_token')->nullable();
+            $table->string('discord_refresh_token')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

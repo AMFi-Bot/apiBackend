@@ -18,7 +18,7 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
-        \SocialiteProviders\Manager\SocialiteWasCallse::class => [
+        \SocialiteProviders\Manager\SocialiteWasCalled::class => [
             \SocialiteProviders\Telegram\TelegramExtendSocialite::class . '@handle',
             \SocialiteProviders\Discord\DiscordExtendSocialite::class . '@handle',
         ],

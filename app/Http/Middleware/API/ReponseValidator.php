@@ -19,8 +19,6 @@ class ReponseValidator
      */
     public function handle(Request $request, Closure $next)
     {
-        $request->expectsJson();
-
         $response = $next($request);
 
         // $resp_data = json_decode($response->getContent());
@@ -80,10 +78,13 @@ class ReponseValidator
             $response = [
                 "status" => $status,
                 "status_description" => SR::$statusTexts[$status],
-                "response_type" => "Redirect quest",
+                "response_type" => "Redirect request",
             ];
 
-            if ($resp) $response["data"]  = $resp;
+            $response["status"] = 200;
+
+            if (array_key_exists('location', $headers)) $response["redirectTo"] = $headers["location"];
+            elseif ($resp) $response["data"]  = $resp;
         } elseif ($var == 4) {
             $response = [
                 "success" => false,
@@ -92,7 +93,10 @@ class ReponseValidator
                 "response_type" => "Client error.",
             ];
 
-            if ($resp) $response["error"]  = $resp;
+            if (isset($resp) && $resp) {
+                if (array_key_exists("errors", $resp)) $response["errors"]  = $resp["errors"];
+                else $response["error"]  = $resp;
+            }
         } elseif ($var == 5) {
             $response = [
                 "success" => false,

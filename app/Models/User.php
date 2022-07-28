@@ -25,6 +25,10 @@ class User extends Authenticatable
         'privelege',
         "email_verified_at",
         "questionnaire",
+        'telegram_id',
+        'discord_id',
+        'discord_token',
+        'discord_refresh_token'
     ];
 
     /**
