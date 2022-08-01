@@ -8,7 +8,12 @@ on:
 
 jobs:
   test:
-    runs-on: "ubuntu-latest"
+    runs-on: ${{ matrix.operating-system }}
+    strategy:
+      matrix:
+        operating-system: ["ubuntu-latest"]
+        php-versions: ["8.1"]
+        phpunit-versions: ["latest"]
     steps:
       - uses: actions/checkout@v3
       - name: Setup PHP
@@ -18,9 +23,27 @@ jobs:
           extensions: mbstring, intl
           coverage: xdebug
           tools: php-cs-fixer, phpunit
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-versions }}
+          extensions: mbstring, intl
+          coverage: xdebug
+          tools: php-cs-fixer, phpunit:${{ matrix.phpunit-versions }}
+
+      - name: Get composer cache directory
+        id: composer-cache
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: ${{ runner.os }}-composer-
 
       - name: Install dependencies
-        run: ls -al && ls .. -al
+        run: composer install --prefer-dist
 
       - name: Test
         run: php artisan test
