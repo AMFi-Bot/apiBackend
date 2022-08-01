@@ -14,6 +14,17 @@ jobs:
         operating-system: ["ubuntu-latest"]
         php-versions: ["8.1"]
         phpunit-versions: ["latest"]
+
+    env:
+      APP_NAME: AMFi-Bot
+      APP_ENV: production
+      APP_KEY: ewoiruywoiduosuyfiywihdufuio
+      APP_DEBUG: true
+
+      FRONTEND_URL:
+      SESSION_DOMAIN:
+      SANCTUM_STATEFUL_DOMAINS:
+
     steps:
       - uses: actions/checkout@v3
       - name: Setup PHP
