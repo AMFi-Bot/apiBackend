@@ -10,21 +10,6 @@ use Illuminate\Support\Facades\Auth;
 class AuthenticatedSessionController extends Controller
 {
     /**
-     * Handle an incoming authentication request.
-     *
-     * @param  \App\Http\Requests\Auth\LoginRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(LoginRequest $request)
-    {
-        $request->authenticate();
-
-        $request->session()->regenerate();
-
-        return response(["user" => auth()->user()]);
-    }
-
-    /**
      * Destroy an authenticated session.
      *
      * @param  \Illuminate\Http\Request  $request
