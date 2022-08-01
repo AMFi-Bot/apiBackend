@@ -8,20 +8,15 @@ on:
 
 jobs:
   test:
-    runs-on: ${{ matrix.operating-system }}
-    strategy:
-      matrix:
-        operating-system: ["ubuntu-latest"]
-        php-versions: ["8.1"]
-        phpunit-versions: ["latest"]
+    runs-on: "ubuntu-latest"
     steps:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: ${{ matrix.php-versions }}
+          php-version: "8.1"
           extensions: mbstring, intl
           coverage: xdebug
-          tools: php-cs-fixer, phpunit:${{ matrix.phpunit-versions }}
+          tools: php-cs-fixer, phpunit
 
       - name: Install dependencies
         run: ls -al && ls .. -al
