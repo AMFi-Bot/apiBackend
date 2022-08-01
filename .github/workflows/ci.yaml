@@ -18,7 +18,7 @@ jobs:
     env:
       APP_NAME: AMFi-Bot
       APP_ENV: production
-      APP_KEY: ewoiruywoiduosuyfiywihdufuio
+      APP_KEY: base64:8GUtn3C/QayBdRzfAAHlp5itHn+urWI6KH0dTJBYKzI=
       APP_DEBUG: true
 
       FRONTEND_URL:
