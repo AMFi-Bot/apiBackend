@@ -24,7 +24,7 @@ jobs:
           tools: php-cs-fixer, phpunit:${{ matrix.phpunit-versions }}
 
       - name: Install dependencies
-        run: composer install
+        run: ls
 
       - name: Test
         run: php artisan test
